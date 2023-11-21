@@ -10,22 +10,15 @@ from dotenv import load_dotenv
 load_dotenv()
 import os
 
-llm = GooglePalm(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.9)
+llm = GooglePalm(google_api_key=os.environ["GOOGLE_API_KEY"], temperature=0.5)
 
 
 
 # Creating Embeddings
 instructor_embeddings = HuggingFaceInstructEmbeddings()
 vectordb_file_path="faiss_index"
+    
 
-def create_vector_db():
-    # Load CSV FIle
-    loader = CSVLoader(file_path='codebasics_faqs.csv', source_column   ='prompt')
-    data = loader.load()
-    vectordb = FAISS.from_documents(documents=data, embedding=instructor_embeddings)
-    vectordb.save_local(vectordb_file_path)
-    
-    
 def get_qa_chain():
     # Load the Database from local folder
     vectordb = FAISS.load_local(vectordb_file_path, instructor_embeddings)
@@ -60,7 +53,5 @@ def get_qa_chain():
     
 if __name__ == "__main__":
     chain = get_qa_chain()
-    
-    print(chain("Do you provide internship?"))
 
 

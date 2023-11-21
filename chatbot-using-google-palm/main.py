@@ -1,9 +1,9 @@
 import streamlit as st
-from langchain_helper import create_vector_db, get_qa_chain
+from langchain_helper import get_qa_chain
 
 st.title("Chatbot")
 
-btn = st.button("Create Knowledgebase")
+btn = st.button("FAST-NUCES")
 
 if btn:
     pass
